@@ -1,9 +1,9 @@
 import os
 import csv
 
-filepath = os.path.join("resources","election_data.csv")
+filepath_input = os.path.join("resources","election_data.csv")
 
-with open(filepath, 'r') as election_data_file:
+with open(filepath_input, 'r') as election_data_file:
 
     data = csv.reader(election_data_file, delimiter = ",")
     data_header = next(data)
@@ -27,17 +27,37 @@ with open(filepath, 'r') as election_data_file:
     
     winning_count = max(candidate_vote_count)
     winner = candidate_list[candidate_vote_count.index(winning_count)]
-    
-    #print results
-    print("Election Results")
-    print("------------------------")
-    print(f"Total Votes: {len(votes)}")
-    print("------------------------")
+
+ #print results
+print("Election Results")
+print("------------------------")
+print(f"Total Votes: {len(votes)}")
+print("------------------------")
+for c in range(len(candidate_list)):
+    print(f"{candidate_list[c]}: {round(candidate_vote_count[c]*100/len(votes),2)}% ({candidate_vote_count[c]})")
+print("------------------------")
+print(f"Winner: {winner}")
+print("------------------------")
+
+filepath_output = os.path.join("analysis","election_analysis.csv")
+
+with open(filepath_output, "w", newline = "") as election_analysis:
+
+    analysis = csv.writer(election_analysis, delimiter=',')
+
+    analysis.writerow(["Election Results"])
+    analysis.writerow(["Total Votes",len(votes)])
+    analysis.writerow(["candidate","percentage of votes", "no. of votes"])
     for c in range(len(candidate_list)):
-        print(f"{candidate_list[c]}: {round(candidate_vote_count[c]*100/len(votes),2)}% ({candidate_vote_count[c]})")
-    print("------------------------")
-    print(f"Winner: {winner}")
-    print("------------------------")
+        analysis.writerow([candidate_list[c],f"{round(candidate_vote_count[c]*100/len(votes),2)}%",candidate_vote_count[c]])
+    analysis.writerow(["Winner", winner])
+    
+
+
+
+
+
+
 
 
 
