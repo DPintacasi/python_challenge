@@ -2,7 +2,7 @@
 import os
 import csv
 
-#make file path
+#make file path for input
 filepath_input = os.path.join("resources","election_data.csv")
 
 #extract data
@@ -61,19 +61,6 @@ with open(filepath_output, "w") as analysis:
     analysis.write("------------------------\n")
     analysis.write(f"Winner: {winner}\n")
     analysis.write("------------------------\n")
-
-#for csv file 
-# with open(filepath_output, "w", newline = "") as election_analysis:
-
-#     analysis = csv.writer(election_analysis, delimiter=',')
-
-#     analysis.writerow(["Election Results"])
-#     analysis.writerow(["Total Votes",len(votes)])
-#     analysis.writerow(["candidate","percentage of votes", "no. of votes"])
-#     for c in range(len(candidate_list)):
-#         analysis.writerow([candidate_list[c],f"{round(candidate_vote_count[c]*100/len(votes),2)}%",candidate_vote_count[c]])
-#     analysis.writerow(["Winner", winner])
-    
 
 
 

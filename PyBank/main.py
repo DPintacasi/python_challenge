@@ -1,25 +1,31 @@
+#import modules
 import os
 import csv
 
-filepath = os.path.join("resources","budget_data.csv")
+#make filepath for input
+filepath_input = os.path.join("resources","budget_data.csv")
 
-with open(filepath, 'r') as budget_data_file:
+#initialise lists
+months = []
+profit = []
+profit_change = [0]
+
+with open(filepath_input, 'r') as budget_data_file:
     data = csv.reader(budget_data_file, delimiter = ",")
     data_header = next(data)
     
-    months = []
-    profit = []
-    profit_change = [0]
-
+    #extract columns
     for row in data:
         months.append(row[0])
         profit.append(int(row[1]))
-    
+
+    #populate profit change list
     for i in range(1,len(profit)):
         profit_change.append(profit[i]-profit[i-1])
 
-    max_profit_change_index = profit_change.index(max(profit_change))
-    min_profit_change_index = profit_change.index(min(profit_change))
+#find index of max/min profit change so we can output respective month
+max_profit_change_index = profit_change.index(max(profit_change))
+min_profit_change_index = profit_change.index(min(profit_change))
 
 print("--------------------------------------------------")
 print("Financial Analysis")
@@ -30,7 +36,7 @@ print(f"Average Change: ${round(sum(profit_change)/len(profit_change),2)}")
 print(f"Greatest Increase in Profit: {months[max_profit_change_index]} (${max(profit_change)})")
 print(f"Greatest Decrease in Profit: {months[min_profit_change_index]} (${min(profit_change)})")
 
-
+#write into output file
 filepath_output = os.path.join("analysis","budget_analysis.txt")
 
 with open(filepath_output, "w", newline = "") as analysis:
@@ -43,16 +49,3 @@ with open(filepath_output, "w", newline = "") as analysis:
     analysis.write(f"Average Change: ${round(sum(profit_change)/len(profit_change),2)}\n")
     analysis.write(f"Greatest Increase in Profit: {months[max_profit_change_index]} (${max(profit_change)})\n")
     analysis.write(f"Greatest Decrease in Profit: {months[min_profit_change_index]} (${min(profit_change)})\n")
-
-# with open(filepath_output, "w", newline = "") as budget_analysis:
-
-#     analysis = csv.writer(budget_analysis, delimiter=',')
-
-#     analysis.writerow(["Financial Analysis"])
-#     analysis.writerow(["Total Months", len(months)])
-#     analysis.writerow(["Total Profit",f"${sum(profit)}"])
-#     analysis.writerow(["Average Change",f"${round(sum(profit_change)/len(profit_change),2)}"])
-#     analysis.writerow(["Greatest Increase in Profit",months[max_profit_change_index],f"${max(profit_change)}"]) 
-#     analysis.writerow(["Greatest Decrease in Profit",months[min_profit_change_index],f"${min(profit_change)}"])
-
-    
