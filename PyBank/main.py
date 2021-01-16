@@ -19,7 +19,11 @@ with open(filepath_input, 'r') as budget_data_file:
         months.append(row[0])
         profit.append(int(row[1]))
 
+# profit = [1000,2000,2500,1000]
+# profit_change =[0, 1000]
+
     #populate profit change list
+
     for i in range(1,len(profit)):
         profit_change.append(profit[i]-profit[i-1])
 
@@ -32,7 +36,7 @@ print("Financial Analysis")
 print("--------------------------------------------------")
 print(f"Total Months: {len(months)}")
 print(f"Total Profit: ${sum(profit)}")
-print(f"Average Change: ${round(sum(profit_change)/len(profit_change),2)}")
+print(f"Average Change: ${round(sum(profit_change)/(len(profit_change)-1),2)}")
 print(f"Greatest Increase in Profit: {months[max_profit_change_index]} (${max(profit_change)})")
 print(f"Greatest Decrease in Profit: {months[min_profit_change_index]} (${min(profit_change)})")
 
@@ -49,3 +53,4 @@ with open(filepath_output, "w", newline = "") as analysis:
     analysis.write(f"Average Change: ${round(sum(profit_change)/len(profit_change),2)}\n")
     analysis.write(f"Greatest Increase in Profit: {months[max_profit_change_index]} (${max(profit_change)})\n")
     analysis.write(f"Greatest Decrease in Profit: {months[min_profit_change_index]} (${min(profit_change)})\n")
+
